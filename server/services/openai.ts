@@ -110,12 +110,25 @@ Respond with a JSON array of suggested questions:`;
       sources.push("https://cs.vex.com");
     }
 
-    if (lowercaseMessage.includes('manual') || lowercaseMessage.includes('rules') || lowercaseMessage.includes('game')) {
+    // Add official game manual sources
+    if (lowercaseMessage.includes('manual') || lowercaseMessage.includes('rules') || lowercaseMessage.includes('game') || lowercaseMessage.includes('scoring') || lowercaseMessage.includes('points')) {
       if (lowercaseMessage.includes('v5') || lowercaseMessage.includes('push back')) {
-        sources.push("https://content.vexrobotics.com/docs/25-26/v5rc-push-back/docs/PushBack-GameManual-0.1.pdf");
+        sources.push("https://link.vex.com/docs/25-26/v5rc-pushback-manual");
+        sources.push("https://www.robotevents.com/V5RC/2025-2026/QA");
       }
       if (lowercaseMessage.includes('iq') || lowercaseMessage.includes('mix') || lowercaseMessage.includes('match')) {
-        sources.push("https://www.vexrobotics.com/mix-and-match-manual");
+        sources.push("https://link.vex.com/docs/25-26/viqrc-mixandmatch-manual");
+        sources.push("https://www.robotevents.com/VIQRC/2025-2026/QA");
+      }
+    }
+
+    // Always include official manuals for game-related questions
+    if (lowercaseMessage.includes('blocks') || lowercaseMessage.includes('goals') || lowercaseMessage.includes('pins') || lowercaseMessage.includes('beams') || lowercaseMessage.includes('park') || lowercaseMessage.includes('autonomous')) {
+      if (lowercaseMessage.includes('v5') || !lowercaseMessage.includes('iq')) {
+        sources.push("https://link.vex.com/docs/25-26/v5rc-pushback-manual");
+      }
+      if (lowercaseMessage.includes('iq') || lowercaseMessage.includes('mix')) {
+        sources.push("https://link.vex.com/docs/25-26/viqrc-mixandmatch-manual");
       }
     }
 

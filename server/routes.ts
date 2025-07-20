@@ -139,6 +139,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         info = vexKnowledge.getProgrammingInfo(topic);
       } else if (type === 'competition') {
         info = vexKnowledge.getCompetitionInfo(topic);
+      } else if (type === 'gamemanual') {
+        info = vexKnowledge.getGameManualInfo(topic);
       }
       
       if (!info) {
@@ -148,6 +150,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(info);
     } catch (error) {
       console.error("Error fetching VEX info:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.get("/api/vex/gamemanuals", async (req, res) => {
+    try {
+      const manuals = {
+        v5PushBack: vexKnowledge.getGameManualInfo('v5PushBack'),
+        iqMixMatch: vexKnowledge.getGameManualInfo('iqMixMatch')
+      };
+      res.json(manuals);
+    } catch (error) {
+      console.error("Error fetching game manuals:", error);
       res.status(500).json({ message: "Internal server error" });
     }
   });

@@ -43,7 +43,10 @@ Preferred communication style: Simple, everyday language.
 
 ### VEX Knowledge Base
 - **Competition Levels**: VEX GO, IQ, V5, and VEX U information
-- **Current Games**: 2025-26 season games (Mix & Match for IQ, Push Back for V5)
+- **Official Game Manuals**: Complete 2025-26 game rules integration
+  - VEX V5 Push Back: Official scoring (3 pts/block, 10 pts autonomous bonus, zone control, parking)
+  - VEX IQ Mix & Match: Official scoring (1 pt/pin, 10 pts/beam, color bonuses, goal matching)
+- **Current Games**: 2025-26 season games with official rules and scoring
 - **Resources**: Programming tools, documentation, and community links
 - **Educational Content**: Age-appropriate guidance for different competition levels
 
