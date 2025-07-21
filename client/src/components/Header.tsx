@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { Search, HelpCircle, Menu } from "lucide-react";
+import { Search, HelpCircle, Menu, Home, Palette } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useLocation } from "wouter";
 
 interface HeaderProps {
   onToggleSidebar: () => void;
   onSearch: (query: string) => void;
+  showHomeButton?: boolean;
+  onShowColorSettings?: () => void;
 }
 
-export function Header({ onToggleSidebar, onSearch }: HeaderProps) {
+export function Header({ onToggleSidebar, onSearch, showHomeButton = true, onShowColorSettings }: HeaderProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [, setLocation] = useLocation();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,6 +36,18 @@ export function Header({ onToggleSidebar, onSearch }: HeaderProps) {
           </div>
           
           <div className="hidden md:flex items-center space-x-4">
+            {showHomeButton && (
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => setLocation('/')}
+                className="flex items-center space-x-2"
+              >
+                <Home className="h-4 w-4" />
+                <span>Home</span>
+              </Button>
+            )}
+            
             <form onSubmit={handleSearch} className="relative">
               <Input
                 type="text"
@@ -42,6 +58,18 @@ export function Header({ onToggleSidebar, onSearch }: HeaderProps) {
               />
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-4 w-4" />
             </form>
+            
+            {onShowColorSettings && (
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={onShowColorSettings}
+                title="Customize Colors"
+              >
+                <Palette className="h-5 w-5" />
+              </Button>
+            )}
+            
             <Button variant="ghost" size="sm">
               <HelpCircle className="h-5 w-5" />
             </Button>

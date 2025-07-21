@@ -2,12 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import { ChatInterface } from "@/components/ChatInterface";
+import { ColorCustomization } from "@/components/ColorCustomization";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import type { ChatSession } from "@shared/schema";
 
 export default function Chat() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showColorSettings, setShowColorSettings] = useState(false);
   const [sessionId, setSessionId] = useState<string>("");
   const chatInterfaceRef = useRef<{ sendMessage: (message: string) => void }>(null);
 
@@ -21,6 +23,18 @@ export default function Chat() {
     },
     onSuccess: (session) => {
       setSessionId(session.sessionId);
+      
+      // Check for initial question from localStorage
+      const initialQuestion = localStorage.getItem('initialQuestion');
+      if (initialQuestion) {
+        localStorage.removeItem('initialQuestion');
+        // Send initial question after a brief delay to ensure chat interface is ready
+        setTimeout(() => {
+          if (chatInterfaceRef.current) {
+            chatInterfaceRef.current.sendMessage(initialQuestion);
+          }
+        }, 100);
+      }
     },
   });
 
@@ -58,6 +72,12 @@ export default function Chat() {
       <Header 
         onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
         onSearch={handleSearch}
+        onShowColorSettings={() => setShowColorSettings(true)}
+      />
+
+      <ColorCustomization 
+        isOpen={showColorSettings}
+        onClose={() => setShowColorSettings(false)}
       />
       
       <div className="flex h-screen pt-16">

@@ -108,4 +108,12 @@
   .hover\:bg-blue-700:hover {
     background-color: hsl(207, 90%, 44%);
   }
+  
+  .hover\:bg-vex-blue-dark:hover {
+    background-color: hsl(207, 90%, 44%);
+  }
+  
+  .bg-vex-blue-dark {
+    background-color: hsl(207, 90%, 44%);
+  }
 }
